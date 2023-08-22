@@ -6,7 +6,7 @@
       placeholder="Поиск...."
       v-focus
     />
-    <div class="app__btns">
+    <div class="app__btns" >
       <my-button
         @click="showDialog"
       >
@@ -52,13 +52,13 @@ import MyButton from "@/components/UI/MyButton";
 import axios from 'axios';
 import MySelect from "@/components/UI/MySelect";
 import MyInput from "@/components/UI/MyInput";
+import {provide} from "vue";
 
 export default {
   components: {
     MyInput,
     MySelect,
-    MyButton,
-    PostList, PostForm
+    PostList, PostForm, MyButton,
   },
   data() {
     return {
@@ -104,7 +104,10 @@ export default {
       } catch (e) {
         alert('Ошибка')
       } finally {
-        this.isPostsLoading = false;
+        let id = setTimeout(() => {
+          this.isPostsLoading = false;
+          clearTimeout(id)
+        }, 500)
       }
     },
     async loadMorePosts() {
@@ -149,6 +152,9 @@ export default {
     // page() {
     //   this.fetchPosts()
     // }
+  },
+  setup() {
+    provide({})
   }
 }
 </script>
